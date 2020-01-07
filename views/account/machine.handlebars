@@ -1,0 +1,23 @@
+<div id="status-wrapper" class="container bg-secondary p-4 col-md-4">
+    <h2 class="text-center p-4">Upstairs Washer #1</h2>
+    <h4 class="text-center text-muted" id="reserved-for"></h4>
+    <p class="text-center"><a href="/account/machines" class="text-danger">Cancel Reservation</a></p>
+    <hr>
+    <div class="container">
+        <div class="col-md-8 offset-md-2">
+            <label><strong>Machine Duration</strong></label>
+            <div class="input-group">
+                <input type="text" class="form-control form-control-lg" placeholder="Min" value="0"/>
+                <div class="input-group-append">
+                        <span class="input-group-text"><strong>:</strong></span>
+                    </div>
+                <input type="text" class="form-control form-control-lg" placeholder="Sec" value="00"/>
+            </div>
+            <button class="btn btn-success btn-block mt-3">START TIMER</button>
+            <hr>
+            <button class="btn btn-info btn-block mt-3">Load Completed</button>
+            {{!-- <hr>
+            <p class="text-center"><a href="#" class="text-info">Report Issue with Machine</a></p> --}}
+        </div>
+    </div>
+</div>

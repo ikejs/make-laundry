@@ -1,0 +1,21 @@
+<div class="jumbotron mt-5">
+    <p class="text-center">
+        <img src="images/logo-transparent.png">
+        <h3 class="text-center p-4">Laundry management designed for the 21st Century</h3>
+        <hr>
+        <div class="row p-4">
+            {{#if user}}
+                <div class="col-md-12">
+                    <a class="btn btn-block btn-info p-3 text-white" href="/account/machines">STATUS DASHBOARD</a>
+                </div>
+                {{else}}
+                <div class="col-md-6">
+                    <a class="btn btn-block btn-success p-3 text-white" href="/signup">SIGN UP</a>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-block btn-info p-3 text-white" href="/login">LOGIN</a>
+                </div>
+            {{/if}}
+        </div>
+    </p>
+</div>

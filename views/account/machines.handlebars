@@ -1,0 +1,70 @@
+<h3>Machines</h3>
+<hr>
+<div class="col-md-2 float-right text-center bg-secondary p-3 rounded">
+    <h4>Key</h4>
+    <span class="badge badge-success btn-block">Available</span>
+    <span class="badge almost-done btn-block">Almost Done</span>
+    <span class="badge badge-dark btn-block">In Use/Reserved</span>
+    <span class="badge badge-danger btn-block">Out of Order</span>
+</div>
+<div id="status-wrapper" class="container bg-secondary p-4 col-md-6 rounded">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-success mb-3 washing-machine">
+                <div class="card-header bg-success text-center text-white"><strong>Upstairs Washer #1</strong></div>
+                <div class="card-body align-items-center">
+                    <h3 class="card-title text-center align-middle">Open</h3>
+                </div>
+                <a class="btn btn-sm btn-success text-white" href="/account/machines/machine-id-here">Reserve Machine</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-dark mb-3">
+                <div class="card-header bg-dark text-center text-white"><strong>Upstairs Top Dryer</strong></div>
+                <div class="card-body almost-done">
+                    <p class="card-text text-center">Ike Holzmann</p>
+                    <h1 id="upstairsTopDryerTime" class="card-text text-center p-3">6:58</h1>
+                    <p class="card-text text-center"><a href="tel:">(555) 555-5555</a></p>
+                </div>
+            </div>
+        </div>         
+        <div class="col-md-6">
+            <div class="card border-dark mb-3">
+                <div class="card-header bg-dark text-center text-white"><strong>Upstairs Washer #2</strong></div>
+                <div class="card-body bg-secondary">
+                    <p class="card-text text-center">Gonzo B</p>
+                    <h1 id="upstairsWasher2Time" class="card-text text-center p-3">23:14</h1>
+                    <p class="card-text text-center"><a href="tel:">(555) 555-5555</a></p>
+                </div>
+            </div>
+        </div>         
+        <div class="col-md-6">
+            <div class="card border-success mb-3 washing-machine">
+                <div class="card-header bg-success text-center text-white"><strong>Upstairs Bottom Dryer</strong></div>
+                <div class="card-body align-items-center">
+                    <h3 class="card-title text-center align-middle">Open</h3>
+                </div>
+                <a class="btn btn-sm btn-success text-white" href="/account/machines/machine-id-here">Reserve Machine</a>
+            </div>
+        </div>        
+        <div class="col-md-6">
+            <div class="card border-dark mb-3">
+                <div class="card-header bg-dark text-center text-white"><strong>Downstairs Washer</strong></div>
+                <div class="card-body bg-secondary">
+                    <p class="card-text text-center">Bill Smith</p>
+                    <h1 class="card-text text-center p-3"><strong>RESERVED</strong></h1>
+                    <p class="card-text text-center"><a href="tel:">(555) 555-5555</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-danger mb-3 washing-machine">
+                <div class="card-header bg-danger text-center text-white"><strong>Downstairs Dryer</strong></div>
+                <div class="card-body align-items-center">
+                    <h3 class="card-title text-center align-middle">Out of Order</h3>
+                </div>
+                {{!-- <a class="btn btn-sm btn-success text-white" href="/account/machines/machine-id-here">Reserve Machine</a> --}}
+            </div>
+        </div>      
+    </div>
+</div>

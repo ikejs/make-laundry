@@ -1,0 +1,23 @@
+.navbar-brand img {
+    width: 140px;
+    height: auto;
+}
+
+#status-wrapper {
+    border-radius: 0 0 20px 20px;
+    min-height: 600px;
+}
+
+.washing-machine {
+    min-height: 230px;
+}
+
+.almost-done {
+    background-color: #FFE599;
+}
+
+.align-items-center {
+    display: flex; 
+    align-items: center;  /*Aligns vertically center */
+    justify-content: center; /*Aligns horizontally center */
+}
