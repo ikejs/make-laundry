@@ -94,10 +94,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if ((req.path === '/api/upload') || (req.path === '/login')) {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
+    console.log('NOT USING CSRF')
   } else {
+    console.log('USING CSRF')
     lusca.csrf()(req, res, next);
   }
 });
