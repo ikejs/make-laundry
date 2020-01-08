@@ -8,13 +8,3 @@ exports.index = (req, res) => {
     active: { home: true }
   });
 };
-
-/**
- * GET /
- * CSRF Token.
- */
-exports.csrf = (req, res) => {
-  res.render('csrf', {
-    layout: false
-  });
-};
