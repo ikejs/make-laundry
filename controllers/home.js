@@ -14,5 +14,7 @@ exports.index = (req, res) => {
  * CSRF Token.
  */
 exports.csrf = (req, res) => {
-  res.render('csrf');
+  res.render('csrf', {
+    layout: false
+  });
 };
