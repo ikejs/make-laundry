@@ -21,6 +21,9 @@ body{
     box-shadow: 0px 3px 1px 0px rgba(0,0,0,0.3);
 }
 
+.info-text{
+    font-family: 'Raleway', sans-serif;
+}
 #status-wrapper {
     min-height: 600px;
 }
