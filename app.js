@@ -94,12 +94,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if ((req.path === '/api/upload') || (req.path === '/login')) {
+  if ((req.path === '/api/upload') || (req.path === '/login') || (req.path === '/signup')) {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
-    console.log('NOT USING CSRF')
   } else {
-    console.log('USING CSRF')
     lusca.csrf()(req, res, next);
   }
 });
@@ -159,7 +157,12 @@ app.get('/account/machines/machine-id-here', passportConfig.isAuthenticated, mac
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
+app.get('/api/csrf', apiController.getCSRF);
+app.post('/api/login', apiController.postApiLogin);
+app.post('/api/signup', apiController.postApiSignUp);
 app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
+
+
 
 /**
  * OAuth authentication routes. (Sign in)
