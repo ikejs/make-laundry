@@ -164,6 +164,7 @@ exports.postApiSignUp = (req, res, next) => {
   req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
 
   const user = new User({
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password
   });
