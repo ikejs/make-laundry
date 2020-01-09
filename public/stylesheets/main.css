@@ -39,6 +39,19 @@ body{
 
 /* END CUSTOM COMPONENTS */
 
+/* BREADCRUMB RESTYLE */
+.breadcrumb{
+    padding:0px;
+    margin:0px;
+
+    padding-bottom:5px;
+    background-color:transparent;
+}
+.breadcrumb-item{
+    font-size:1.2rem;
+}
+/* BREAKCRUMB RESTYLE */
+
 /* FORM RESTYLE */
 form label{
     font-family: 'Raleway', sans-serif;
