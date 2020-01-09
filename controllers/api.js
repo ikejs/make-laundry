@@ -159,8 +159,7 @@ exports.postApiSignUp = (req, res, next) => {
   if (req.body.password !== req.body.confirmPassword) res.send({ msg: 'Passwords do not match' });
 
   if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/signup');
+    res.send({msg: validationErrors, error: true})
   }
   req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
 
@@ -172,8 +171,7 @@ exports.postApiSignUp = (req, res, next) => {
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.redirect('/signup');
+      res.send({ msg: 'Account with that email address already exists.', error: true });
     }
     user.save((err) => {
       if (err) { return next(err); }
@@ -181,7 +179,7 @@ exports.postApiSignUp = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        res.send(user);
       });
     });
   });

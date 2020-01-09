@@ -94,7 +94,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if ((req.path === '/api/upload') || (req.path === '/login') || (req.path === '/signup')) {
+  if ((req.path === '/api/upload') || (req.path === '/api/login') || (req.path === '/api/signup')) {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
