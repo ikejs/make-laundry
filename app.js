@@ -94,7 +94,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
+  if ((req.path === '/api/upload') || (req.path === '/api/login') || (req.path === '/api/signup')) {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
@@ -133,7 +133,6 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/', homeController.index);
-app.get('/csrf', homeController.csrf);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -158,7 +157,12 @@ app.get('/account/machines/machine-id-here', passportConfig.isAuthenticated, mac
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
+app.post('/api/login', apiController.postApiLogin);
+app.post('/api/signup', apiController.postApiSignUp);
+app.get('/api/logout', apiController.getApiLogout);
 app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
+
+
 
 /**
  * OAuth authentication routes. (Sign in)

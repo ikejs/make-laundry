@@ -1,7 +1,11 @@
 const { promisify } = require('util');
 const GitHub = require('@octokit/rest');
 const axios = require('axios');
+const passport = require('passport');
 const validator = require('validator');
+const User = require('../models/User');
+
+
 
 
 /**
@@ -119,3 +123,78 @@ exports.postFileUpload = (req, res) => {
   res.redirect('/api/upload');
 };
 
+
+// iOS APP LOGIN
+
+exports.postApiLogin = (req, res, next) => {
+  const validationErrors = [];
+  if (!validator.isEmail(req.body.email)) res.send({ msg: 'Please enter a valid email address.' });
+  if (validator.isEmpty(req.body.password)) res.send({ msg: 'Password cannot be blank.' });
+
+  if (validationErrors.length) {
+    res.send({ msg: validationErrors, error: true });
+  }
+  req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+
+  passport.authenticate('local', (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) {
+      res.send({ msg: info, error: true })
+    }
+    req.logIn(user, (err) => {
+      if (err) { return next(err); }
+      res.send(user);
+    });
+  })(req, res, next);
+};
+
+
+
+// iOS APP SIGN UP
+
+exports.postApiSignUp = (req, res, next) => {
+  const validationErrors = [];
+  if (!validator.isEmail(req.body.email)) res.send({ msg: 'Please enter a valid email address.' });
+  if (!validator.isLength(req.body.password, { min: 8 })) res.send({ msg: 'Password must be at least 8 characters long' });
+  if (req.body.password !== req.body.confirmPassword) res.send({ msg: 'Passwords do not match' });
+
+  if (validationErrors.length) {
+    res.send({msg: validationErrors, error: true})
+  }
+  req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+
+  const user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  User.findOne({ email: req.body.email }, (err, existingUser) => {
+    if (err) { return next(err); }
+    if (existingUser) {
+      res.send({ msg: 'Account with that email address already exists.', error: true });
+    }
+    user.save((err) => {
+      if (err) { return next(err); }
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        res.send(user);
+      });
+    });
+  });
+};
+
+exports.getApiLogout = (req, res) => {
+  if(req.user) {
+    req.logout();
+    req.session.destroy((err) => {
+      if (err) console.log('Error : Failed to destroy the session during logout.', err);
+      req.user = null;
+      res.send({ logout: true })
+    });
+  } else {
+    res.send({ msg: "no user to log out" })
+  }
+};
