@@ -4,6 +4,7 @@ const axios = require('axios');
 const passport = require('passport');
 const validator = require('validator');
 const User = require('../models/User');
+const ObjectId = require('mongodb').ObjectID;
 
 
 
@@ -198,3 +199,24 @@ exports.getApiLogout = (req, res) => {
     res.send({ msg: "no user to log out" })
   }
 };
+
+machines = [
+  {
+    id: ObjectId(),
+    name: "First Floor Washer",
+    vacant: false,
+    timerStartedAt: new Date(),
+    timerSeconds: 3600
+  },
+  {
+    id: ObjectId(),
+    name: "First Floor Dryer",
+    vacant: true,
+    timerStartedAt: null,
+    timerSeconds: null
+  }
+]
+
+exports.getMachines = (req, res) => {
+  res.send(machines);
+}
