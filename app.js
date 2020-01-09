@@ -157,9 +157,9 @@ app.get('/account/machines/machine-id-here', passportConfig.isAuthenticated, mac
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
-app.get('/api/csrf', apiController.getCSRF);
 app.post('/api/login', apiController.postApiLogin);
 app.post('/api/signup', apiController.postApiSignUp);
+app.get('/api/logout', apiController.getApiLogout);
 app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
 
 
