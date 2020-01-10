@@ -6,6 +6,7 @@ const _ = require('lodash');
 const validator = require('validator');
 const mailChecker = require('mailchecker');
 const User = require('../models/User');
+const Group = require('../models/Group');
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
@@ -72,9 +73,24 @@ exports.getSignup = (req, res) => {
   if (req.user) {
     return res.redirect('/');
   }
-  res.render('account/signup', {
-    title: 'Create Account'
-  });
+  if(req.query.g) {
+    Group.findOne({ slug: req.query.g }, function(err, group) {
+      if(!group) {
+        req.flash('errors', { msg: 'That group does not exist.' })
+        res.redirect('/signup');
+      } else {
+        res.render('account/signup', {
+          title: 'Join ' + group.name,
+          groupName: group.name
+        });
+      }
+    });
+  } else {
+    res.render('account/signup', {
+      title: 'Create Account',
+      managerSignup: true
+    });
+  }
 };
 
 /**
@@ -96,7 +112,8 @@ exports.postSignup = (req, res, next) => {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    group: req.query.g
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -111,7 +128,7 @@ exports.postSignup = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        res.redirect('/account/machines');
       });
     });
   });

@@ -4,6 +4,7 @@ const axios = require('axios');
 const passport = require('passport');
 const validator = require('validator');
 const User = require('../models/User');
+const ObjectId = require('mongodb').ObjectID;
 
 
 
@@ -198,3 +199,98 @@ exports.getApiLogout = (req, res) => {
     res.send({ msg: "no user to log out" })
   }
 };
+
+sets = [
+  {
+    "_id": "34ygtuy3g4ygt23gygygs",
+    "name": "Second Floor",
+    "groups": [
+        {
+            "_id": "34ygtuy3g4ygt4bgyu34gb",
+            "name": "Washers",
+            "machines": [
+                {
+                    "_id": "34ygtuy3g4ygt82herg2j",
+                    "name": "Second Floor Washer #1",
+                    "status": {
+                        "timerSeconds": 36000,
+                        "timerStarted": "2020-01-10T00:10:40.787Z",
+                        "currentUser": {
+                            "_id": {
+                                "$oid": "5e17bcfea0f3150017933639"
+                            },
+                            "tokens": [],
+                            "name": "MikeandIke",
+                            "email": "ikey@gmail.com",
+                            "password": "$2b$10$mbJfQoyNbyjT7E1YD4gzkeGoZ.iLFU26m3kZPR9FqvC770OPQjJq6",
+                            "createdAt": {
+                                "$date": "2020-01-09T23:53:34.100Z"
+                            },
+                            "updatedAt": {
+                                "$date": "2020-01-09T23:53:34.100Z"
+                            },
+                            "__v": 0
+                        }
+                    }
+                },
+                {
+                    "_id": "34ygtuy3g4ygt82herg2j",
+                    "name": "Second Floor Washer #2",
+                    "status": {
+                        "timerSeconds": null,
+                        "timerStarted": null,
+                        "currentUser": null
+                    }
+                },
+            ]
+        },
+        {
+            "_id": "34t7y8734ty38hgre34",
+            "name": "Dryers",
+            "machines": [
+                {
+                    "_id": "567rtyjje56rythe4rt",
+                    "name": "Second Floor Dryer #1",
+                    "vacant": false,
+                    "status": {
+                        "timerSeconds": 36000,
+                        "timerStarted": "2020-01-09T17:10:40.787Z",
+                        "currentUser": {
+                            "_id": {
+                                "$oid": "5e17bcfea0f3150017933639"
+                            },
+                            "tokens": [],
+                            "name": "MikeandIke",
+                            "email": "ikey@gmail.com",
+                            "password": "$2b$10$mbJfQoyNbyjT7E1YD4gzkeGoZ.iLFU26m3kZPR9FqvC770OPQjJq6",
+                            "createdAt": {
+                                "date": "2020-01-09T23:53:34.100Z"
+                            },
+                            "updatedAt": {
+                                "$date": "2020-01-09T23:53:34.100Z"
+                            },
+                            "__v": 0
+                        }
+                    }
+                },
+                {
+                    "_id": "w45rthe45rytsergdres5r",
+                    "name": "Second Floor Dryer #2",
+                    "vacant": true,
+                    "status": {
+                        "timerSeconds": 36000,
+                        "timerStarted": "2020-01-09T17:10:40.787Z",
+                        "currentUser": "4wugt5uy4htue45yeurtgf"
+                    },
+                    "timerSeconds": null,
+                    "timerStarted": null
+                }
+            ]
+        }
+    ]
+}
+]
+
+exports.getSets = (req, res) => {
+  res.send(sets);
+}
