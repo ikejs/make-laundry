@@ -67,12 +67,26 @@ Group.findOne({
 
 
 exports.postMachine = (req, res) => {
-    // console.log(req.user.name);
+    console.log(req.user.name);
     console.log('MACHINE:', req.body._id);
     console.log('TIMER:', req.body.cycleduration);
     console.log('STARTED AT:', Date.parse(new Date()));
 
-    Group.updateOne({
-        "sets.groups.machines._id": ObjectId(req.body._id)
-    }, { '$set': { "sets.0.emails.0.email" : '2222' } });
+    if(req.body.cycleduration) {
+        Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.currentUser": req.user }}, function(err, result) {
+            console.log(result);
+        });
+        Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerSeconds": parseInt(req.body.cycleduration*1000) }}, function(err, result) {
+            console.log(result);
+        });
+        Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+            console.log(result);
+        });
+        res.redirect('/account/machine/'+req.params.machineID);
+    } else {
+        console.log('MARK VACANT')
+    }
+    Group.findOne({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, function(err, data) {
+        console.log(JSON.stringify(data));
+    })
   };

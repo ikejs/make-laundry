@@ -4,7 +4,8 @@ const groupSchema = new mongoose.Schema({
   name: String,
   slug: String,
   manager: String,
-  members: Array
+  members: Array,
+  sets: Array
 }, { timestamps: true });
 
 
