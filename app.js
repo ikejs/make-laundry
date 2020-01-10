@@ -151,7 +151,7 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
 app.get('/account/machines', passportConfig.isAuthenticated, machineController.getMachines)
-app.get('/account/machines/machine-id-here', passportConfig.isAuthenticated, machineController.getMachine)
+app.get('/account/machine/:machineID', passportConfig.isAuthenticated, machineController.getMachine)
 
 /**
  * API examples routes.
