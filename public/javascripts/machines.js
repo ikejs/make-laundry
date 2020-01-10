@@ -1,48 +1,89 @@
 function build_machine(machine){
-    name = machine['name']
-    id = machine['_id']
-    var machine_tempate = `
-        <a class="mx-auto btn btn-block btn-info" href="/machine/${id}">${name}</a>
+    name = machine['name'];
+    id = machine['_id'];
+    var machine_template = `
+        <a class="machine-wrapper" href="/${id}">
+            <h10 class="breadcrumb-item active font-weight-light">${name}</h10>
+            <div class="machine" id="${id}"></div>
+        </a>
     `;
     
-    return machine_template
+    return machine_template;
 }
 
 function build_group(group){
-    name = group['name']
-    id = groups['_id']
-    var group_tempate = `
-        <div id='${id}' class=''>
+    name = group['name'];
+    id = group['_id'];
+    var group_template = `
+        <div class="machine-container">
+            <div id="${id}">
+            </div>
         </div>
     `;
 
-    return group_template
+    return group_template;
 }
 
 function build_set(set){
     name = set['name'];
-    id = set['id']
+    id = set['_id'];
     var set_template = `
-        <div class='col-md-6 mx-auto'>
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">${name}</li>
-        </ol>
-        </nav>
+        <div class='col-md-8 mx-auto'>
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">${name}</li>
+            </ol>
+            </nav>
             <div id="${name}" class="info-box">
-                <div id="${id}" class='mx-auto p-4'>
+                <div id="${id}" class='mx-auto p-2'>
                 </div>
             </div>
-            
         </div>
     `;
 
     return set_template;
 }
 
-$(document).ready(function(){
+function update_status(target, status){
+    target = $('#' + target);
+    var value = 'no status';
+    target.removeClass('machine-vacant machine-finished machine-inuse');
 
-    $.get('/api/sets/5e17dcea72d7dfb65f94a008', async function(data){
+    if(status == null){
+        value = 'VACANT';
+        target.text(value);
+        target.addClass('machine-vacant');
+        return;
+    }
+
+    var timer_seconds = int(machine['timerSeconds']) *  1000;
+    var start_time = int(Date.parse(machine['timerStarted']));
+    var minutes_left = (start_time - timer_seconds) / 60000;
+
+    if(minutes_left <= 0){
+        value = 'FINISHED';
+        target.addClass('machine-finished');
+    } else {
+        value = str(Math.ceil(minutes_left));
+        target.addClass('machine-inuse');
+    }
+    target.text(value);
+}
+
+function poll_machines(machine_list){
+    for(x=0; x < machine_list.length; x++){
+        machine_id = machine_list[x];
+
+        $.get('/api/machine/' + machine_id, function(data){
+            update_status(data['status']);
+        });
+    }
+}
+
+machine_list = []
+
+$(document).ready(function(){
+    $.get('/api/group/5e17dcea72d7dfb65f94a008', async function(data){
 
         sets = data['sets']
         for(x=0; x < sets.length; x++){
@@ -56,10 +97,13 @@ $(document).ready(function(){
 
                 machines = group['machines'];
                 for(z=0; z < machines.length; z++){
-                    machine = machines[z]
-                    $('#' + group['_id']).append(build_machine(machine))
+                    machine = machines[z];
+                    $('#' + group['_id']).append(build_machine(machine));
+
+                    machine_list.push(machine['_id']);
                 }
             }
         }
+        var poll = setInterval(poll_machines(machine_list), 12000);
     });
 });
