@@ -4,7 +4,7 @@ function build_machine(machine){
     name = machine['name'];
     id = machine['_id'];
     var machine_template = `
-        <a class="machine-wrapper" href="/${id}">
+        <a class="machine-wrapper" href="/account/machine/${id}">
             <h10 class="breadcrumb-item active font-weight-light">${name}</h10>
             <div class="machine" id="${id}"></div>
         </a>
@@ -64,7 +64,7 @@ function update_status(target, status){
     var minutes_left = (timer_seconds - (time - start_time)) / 60000;
 
     if(DEBUG){
-        console.log(`${timer_seconds} - (${time} - ${start_time})`)
+        console.log(`${timer_seconds} - (${time} - ${start_time}) = ${minutes_left}`)
     }
 
     if(minutes_left <= 0){
@@ -116,7 +116,6 @@ $(document).ready(async function(){
 
     machine_list.then(function(list){
         var poll = setInterval(function(){
-            console.log(list)
             poll_machines(list);
         }, 1000);
     });
