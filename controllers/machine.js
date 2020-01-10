@@ -72,21 +72,170 @@ exports.postMachine = (req, res) => {
     console.log('TIMER:', req.body.cycleduration);
     console.log('STARTED AT:', Date.parse(new Date()));
 
-    if(req.body.cycleduration) {
-        Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.currentUser": req.user }}, function(err, result) {
-            console.log(result);
-        });
-        Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerSeconds": parseInt(req.body.cycleduration*1000) }}, function(err, result) {
-            console.log(result);
-        });
-        Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
-            console.log(result);
-        });
-        res.redirect('/account/machine/'+req.params.machineID);
-    } else {
-        console.log('MARK VACANT')
+    // floor 2 washer 1
+    if(req.params.machineID === '5e17f7ed72d7dfb65f94a012') {
+        if(req.body.cycleduration) {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.0.status.currentUser": req.user }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.0.status.timerSeconds": parseInt(req.body.cycleduration*60) }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.0.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        } else {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.0.status.currentUser": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.0.status.timerSeconds": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.0.status.timerStarted": null }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        }
     }
-    Group.findOne({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, function(err, data) {
-        console.log(JSON.stringify(data));
-    })
+
+    // floor 2 washer 2
+    if(req.params.machineID === '5e17fa9172d7dfb65f94a018') {
+        if(req.body.cycleduration) {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.currentUser": req.user }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerSeconds": parseInt(req.body.cycleduration*60) }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        } else {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.currentUser": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerSeconds": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.0.machines.1.status.timerStarted": null }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        }
+    }
+
+    // floor 2 dryer 1
+    if(req.params.machineID === '5e17f83372d7dfb65f94a014') {
+        if(req.body.cycleduration) {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.0.status.currentUser": req.user }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.0.status.timerSeconds": parseInt(req.body.cycleduration*60) }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.0.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        } else {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.0.status.currentUser": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.0.status.timerSeconds": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.0.status.timerStarted": null }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        }
+    }
+
+    // floor 2 dryer 2
+    if(req.params.machineID === '5e17fb9872d7dfb65f94a019') {
+        if(req.body.cycleduration) {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.1.status.currentUser": req.user }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.1.status.timerSeconds": parseInt(req.body.cycleduration*60) }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.1.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        } else {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.1.status.currentUser": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.1.status.timerSeconds": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.0.groups.1.machines.1.status.timerStarted": null }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        }
+    }
+
+    // floor 1 washer 1
+    if(req.params.machineID === '5e17f85d72d7dfb65f94a015') {
+        if(req.body.cycleduration) {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.0.machines.0.status.currentUser": req.user }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.0.machines.0.status.timerSeconds": parseInt(req.body.cycleduration*60) }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.0.machines.0.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        } else {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.0.machines.0.status.currentUser": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.0.machines.0.status.timerSeconds": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.0.machines.0.status.timerStarted": null }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        }
+    }
+
+    // floor 1 dryer 1
+    if(req.params.machineID === '5e17f90b72d7dfb65f94a016') {
+        if(req.body.cycleduration) {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.1.machines.0.status.currentUser": req.user }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.1.machines.0.status.timerSeconds": parseInt(req.body.cycleduration*60) }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.1.machines.0.status.timerStarted": Date.parse(new Date()) }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        } else {
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.1.machines.0.status.currentUser": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.1.machines.0.status.timerSeconds": null }}, function(err, result) {
+                console.log(result);
+            });
+            Group.update ({ "_id": ObjectId("5e17dcea72d7dfb65f94a008") }, { '$set': {"sets.1.groups.1.machines.0.status.timerStarted": null }}, function(err, result) {
+                console.log(result);
+            });
+            res.redirect('/account/machine/'+req.params.machineID);
+        }
+    }
+
+
+
+
+    
   };
