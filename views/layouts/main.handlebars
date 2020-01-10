@@ -21,7 +21,9 @@
     <nav class="navbar navbar-expand font-weight-lighter">
         <a class="navbar-brand mx-auto align-middle" href="/" style="padding-left:6rem;">MAKE LAUNDRY</a>
         <ul class="navbar-right">
-            <a class="navbar-item align-middle info-text" href="/logout">Log Out</a>
+            {{#if user}}
+                <a class="navbar-item align-middle info-text" href="/logout">Log Out</a>
+            {{/if}}
         </ul>
     </nav>
 
