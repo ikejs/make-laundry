@@ -162,6 +162,7 @@ app.post('/api/signup', apiController.postApiSignUp);
 app.get('/api/logout', apiController.getApiLogout);
 app.get('/api/github', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGithub);
 app.get('/api/group/:groupID', apiController.getGroup);
+app.get('/api/machine/:machineID', apiController.getMachine);
 
 
 /**
