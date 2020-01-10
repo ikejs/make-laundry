@@ -28,23 +28,38 @@ Group.findOne({
     }
     if(req.params.machineID === '5e17fa9172d7dfb65f94a018') {
     // floor 2 washer 2
-    res.send(results.toObject().sets[0].groups[0].machines[1]);
+    res.render('account/machine', {
+        machine: results.toObject().sets[0].groups[0].machines[1],
+        title: results.toObject().sets[0].groups[0].machines[1].name
+    })
     }
     if(req.params.machineID === '5e17f83372d7dfb65f94a014') {
     // floor 2 dryer 1
-    res.send(results.toObject().sets[0].groups[1].machines[0]);
+    res.render('account/machine', {
+        machine: results.toObject().sets[0].groups[1].machines[0],
+        title: results.toObject().sets[0].groups[1].machines[0].name
+    })
     }
     if(req.params.machineID === '5e17fb9872d7dfb65f94a019') {
     // floor 2 dryer 2
-    res.send(results.toObject().sets[0].groups[1].machines[1]);
+    res.render('account/machine', {
+        machine: results.toObject().sets[0].groups[1].machines[1],
+        title: results.toObject().sets[0].groups[1].machines[1].name
+    })
     }
     if(req.params.machineID === '5e17f85d72d7dfb65f94a015') {
     // floor 1 washer 1
-    res.send(results.toObject().sets[0].groups[0].machines[0]);
+    res.render('account/machine', {
+        machine: results.toObject().sets[0].groups[0].machines[0],
+        title: results.toObject().sets[0].groups[0].machines[0].name
+    })
     }
     if(req.params.machineID === '5e17f90b72d7dfb65f94a016') {
     // floor 1 dryer 1
-    res.send(results.toObject().sets[0].groups[1].machines[0]);
+    res.render('account/machine', {
+        machine: results.toObject().sets[0].groups[1].machines[0],
+        title: results.toObject().sets[0].groups[1].machines[0].name
+    })
     }
     }
 })
