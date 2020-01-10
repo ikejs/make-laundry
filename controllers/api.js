@@ -6,6 +6,8 @@ const validator = require('validator');
 const User = require('../models/User');
 const Set = require('../models/Set');
 const Group = require('../models/Group');
+var ObjectId = require('mongodb').ObjectID;
+
 
 
 
@@ -298,3 +300,42 @@ exports.getGroup = (req, res) => {
     res.send(data);
   });
 }
+
+
+exports.getMachine = (req, res) => {
+  Group.findOne({
+    "sets.groups.machines._id": ObjectId(req.params.machineID)
+ }, {
+  "sets.groups.machines.$._id": 1
+ }, function(err, results) {
+   if (err) {
+     res.send(err);
+   } else {
+    if(req.params.machineID === '5e17f7ed72d7dfb65f94a012') {
+      // floor 2 washer 1
+      res.send(results.toObject().sets[0].groups[0].machines[0]);
+    }
+    if(req.params.machineID === '5e17fa9172d7dfb65f94a018') {
+      // floor 2 washer 2
+      res.send(results.toObject().sets[0].groups[0].machines[1]);
+    }
+    if(req.params.machineID === '5e17f83372d7dfb65f94a014') {
+      // floor 2 dryer 1
+      res.send(results.toObject().sets[0].groups[1].machines[0]);
+    }
+    if(req.params.machineID === '5e17fb9872d7dfb65f94a019') {
+      // floor 2 dryer 2
+      res.send(results.toObject().sets[0].groups[1].machines[1]);
+    }
+    if(req.params.machineID === '5e17f85d72d7dfb65f94a015') {
+      // floor 1 washer 1
+      res.send(results.toObject().sets[0].groups[0].machines[0]);
+    }
+    if(req.params.machineID === '5e17f90b72d7dfb65f94a016') {
+      // floor 1 dryer 1
+      res.send(results.toObject().sets[0].groups[1].machines[0]);
+    }
+   }
+ })
+}
+
