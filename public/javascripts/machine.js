@@ -58,7 +58,7 @@ function update_status(target, status){
 
     var time = Date.now();
     var timer_seconds = parseInt(status['timerSeconds']) * 1000;
-    var start_time = Date.parse(status['timerStarted']);
+    var start_time = parseInt(status['timerStarted']);
     var minutes_left = (timer_seconds - (time - start_time)) / 60000;
 
     if(DEBUG){
