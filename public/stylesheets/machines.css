@@ -1,0 +1,33 @@
+.info-box{
+    margin-bottom:40px;
+}
+.machine-container:not(:last-child) {
+    margin-bottom:20px;
+}
+.machine-wrapper:not(:last-child) {
+    margin-bottom:10px;
+}
+
+.machine-wrapper:hover{
+    text-decoration: none;
+}
+.machine{
+    display:block;
+    padding:15px 0px 15px 0px;
+    border-radius:2.5px;
+
+    border-color:transparent;
+    background-color:grey;
+    color:white;
+    text-align:center;
+}
+
+.machine-vacant{
+    background-color:#87C672;
+}
+.machine-finished{
+    background-color:#ABABAB;
+}
+.machine-inuse{
+    background-color:#60a5e5;
+}

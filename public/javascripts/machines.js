@@ -1,3 +1,5 @@
+let DEBUG = true;
+
 function build_machine(machine){
     name = machine['name'];
     id = machine['_id'];
@@ -49,22 +51,27 @@ function update_status(target, status){
     var value = 'no status';
     target.removeClass('machine-vacant machine-finished machine-inuse');
 
-    if(status == null){
+    if(status['currentUser'] == null){
         value = 'VACANT';
         target.text(value);
         target.addClass('machine-vacant');
         return;
     }
 
-    var timer_seconds = int(machine['timerSeconds']) *  1000;
-    var start_time = int(Date.parse(machine['timerStarted']));
-    var minutes_left = (start_time - timer_seconds) / 60000;
+    var time = Date.now();
+    var timer_seconds = parseInt(status['timerSeconds']) * 1000;
+    var start_time = Date.parse(status['timerStarted']);
+    var minutes_left = (timer_seconds - (time - start_time)) / 60000;
+
+    if(DEBUG){
+        console.log(`${timer_seconds} - (${time} - ${start_time})`)
+    }
 
     if(minutes_left <= 0){
         value = 'FINISHED';
         target.addClass('machine-finished');
     } else {
-        value = str(Math.ceil(minutes_left));
+        value = Math.ceil(minutes_left) + 'min left';
         target.addClass('machine-inuse');
     }
     target.text(value);
@@ -75,35 +82,42 @@ function poll_machines(machine_list){
         machine_id = machine_list[x];
 
         $.get('/api/machine/' + machine_id, function(data){
-            update_status(data['status']);
+            update_status(data['_id'], data['status']);
         });
     }
 }
 
-machine_list = []
-
-$(document).ready(function(){
-    $.get('/api/group/5e17dcea72d7dfb65f94a008', async function(data){
-
-        sets = data['sets']
-        for(x=0; x < sets.length; x++){
-            set = sets[x];
-            $('#set-container').append(build_set(set));
-
-            groups = set['groups'];
-            for(y=0; y < groups.length; y++){
-                group = groups[y];
-                $('#' + set['_id']).append(build_group(group));
-
-                machines = group['machines'];
-                for(z=0; z < machines.length; z++){
-                    machine = machines[z];
-                    $('#' + group['_id']).append(build_machine(machine));
-
-                    machine_list.push(machine['_id']);
+$(document).ready(async function(){
+    let machine_list = new Promise((resolve, reject) => {
+        $.get('/api/group/5e17dcea72d7dfb65f94a008', function(data){
+            let machine_list = []
+            sets = data['sets']
+            for(x=0; x < sets.length; x++){
+                set = sets[x];
+                $('#set-container').append(build_set(set));
+    
+                groups = set['groups'];
+                for(y=0; y < groups.length; y++){
+                    group = groups[y];
+                    $('#' + set['_id']).append(build_group(group));
+    
+                    machines = group['machines'];
+                    for(z=0; z < machines.length; z++){
+                        machine = machines[z];
+                        $('#' + group['_id']).append(build_machine(machine));
+    
+                        machine_list.push(machine['_id']);
+                    }
                 }
             }
-        }
-        var poll = setInterval(poll_machines(machine_list), 12000);
+            resolve(machine_list);
+        });
+    });
+
+    machine_list.then(function(list){
+        var poll = setInterval(function(){
+            console.log(list)
+            poll_machines(list);
+        }, 1000);
     });
 });
