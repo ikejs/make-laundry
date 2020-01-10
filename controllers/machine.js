@@ -23,7 +23,7 @@ Group.findOne({
     // floor 2 washer 1
     res.render('account/machine', {
         machine: results.toObject().sets[0].groups[0].machines[0],
-        title: results.toObject().sets[0].groups[0].machines[0].title
+        title: results.toObject().sets[0].groups[0].machines[0].name
     })
     }
     if(req.params.machineID === '5e17fa9172d7dfb65f94a018') {
