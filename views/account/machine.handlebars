@@ -1,12 +1,17 @@
+<script src="../../javascripts/machine.js"></script>
+<link rel="stylesheet" href="../../stylesheets/machines.css">
 <div class='col-md-8 mx-auto'>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item" aria-current="page"></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="/">Back</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{machine.name}}</li>
         </ol>
     </nav>
     <div id="${name}" class="info-box">
         <div id="${id}" class='mx-auto p-2'>
+            <div class="machine" id="{{machine._id}}"></div>
+            <div class="mt-5" id="body-container">
+            </div>
         </div>
     </div>
 </div>
