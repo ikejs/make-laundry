@@ -42,6 +42,7 @@ function render_vacant(id){
     return vacant_template;
 }
 
+current_status = null; //used to track if the page needs to be refreshed
 function update_status(target, status){
     target = $('#' + target);
     var value = 'no status';
@@ -51,12 +52,13 @@ function update_status(target, status){
         value = 'VACANT';
         target.text(value);
         target.addClass('machine-vacant');
+        current_status = 'machine-vacant';
         return;
     }
 
     var time = Date.now();
     var timer_seconds = parseInt(status['timerSeconds']) * 1000;
-    var start_time = Date.parse(status['timerStarted']);
+    var start_time = parseInt(status['timerStarted']);
     var minutes_left = (timer_seconds - (time - start_time)) / 60000;
 
     if(DEBUG){
@@ -66,9 +68,11 @@ function update_status(target, status){
     if(minutes_left <= 0){
         value = 'FINISHED (' + Math.round(minutes_left * -1)+ 'min ago)';
         target.addClass('machine-finished');
+        currentstatus = 'machine-finished';
     } else {
         value = Math.round(minutes_left) + 'min left';
         target.addClass('machine-inuse');
+        current_status = 'machine-inuse';
     }
     target.text(value);
 }
@@ -76,10 +80,11 @@ function update_status(target, status){
 $(document).ready(function(){
     id = $('.machine').attr('id');
 
-    $.get('/api/machine/' + id, function(data){
+    let initial_status = new Promise((resolve, reject) => {
+        $.get('/api/machine/' + id, function(data){
         update_status(id, data['status']);
         
-        target = $('#' + id)
+        target = $('#' + id);
         container = $('#body-container');
         if(target.hasClass('machine-inuse')){
             current_user = data['status']['currentUser']['name']
@@ -90,12 +95,25 @@ $(document).ready(function(){
         }else if(target.hasClass('machine-vacant')){
             container.html(render_vacant(id));
         }
+
+        resolve();
+        });
     });
 
-    last_status = null
-    var poll = setInterval(function(){
-        $.get('/api/machine/' + id, function(data){
-            update_status(id, data['status']);
-        });
-    }, 1000)
+    initial_status.then(function(list){
+        var poll = setInterval(function(){
+            $.get('/api/machine/' + id, function(data){
+                last_status = current_status;
+                update_status(id, data['status']);
+
+                if(DEBUG){
+                    console.log(`${last_status} -> ${current_status}`);
+                }
+
+                if(last_status != current_status) {
+                    location.reload();
+                }
+            });
+        }, 1000)
+    });
 });
