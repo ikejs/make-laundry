@@ -338,4 +338,3 @@ exports.getMachine = (req, res) => {
    }
  })
 }
-

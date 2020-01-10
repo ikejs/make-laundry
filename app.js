@@ -94,7 +94,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if ((req.path === '/api/upload') || (req.path === '/api/login') || (req.path === '/api/signup')) {
+  if ((req.path === '/api/upload') || (req.path === '/api/login') || (req.path === '/api/signup') || (req.path.includes('/account/machine/'))) {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
@@ -152,6 +152,7 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 
 app.get('/account/machines', passportConfig.isAuthenticated, machineController.getMachines)
 app.get('/account/machine/:machineID', passportConfig.isAuthenticated, machineController.getMachine)
+app.post('/account/machine/:machineID', machineController.postMachine)
 
 /**
  * API examples routes.

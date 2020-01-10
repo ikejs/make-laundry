@@ -64,3 +64,15 @@ Group.findOne({
     }
 })
 }
+
+
+exports.postMachine = (req, res) => {
+    // console.log(req.user.name);
+    console.log('MACHINE:', req.body._id);
+    console.log('TIMER:', req.body.cycleduration);
+    console.log('STARTED AT:', Date.parse(new Date()));
+
+    Group.updateOne({
+        "sets.groups.machines._id": ObjectId(req.body._id)
+    }, { '$set': { "sets.0.emails.0.email" : '2222' } });
+  };
