@@ -5,6 +5,7 @@ const passport = require('passport');
 const validator = require('validator');
 const User = require('../models/User');
 const Set = require('../models/Set');
+const Group = require('../models/Group');
 
 
 
@@ -291,9 +292,9 @@ exports.getApiLogout = (req, res) => {
 // }
 // ]
 
-exports.getSets = (req, res) => {
+exports.getGroup = (req, res) => {
   // EXPAND:   Set.find({ group: req.params.groupID }, function(err, sets) {
-  Set.find({}, function(err, sets) {
-    res.send(sets);
+  Group.findOne({ _id: req.params.groupID }, function(err, data) {
+    res.send(data);
   });
 }
